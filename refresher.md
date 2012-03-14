@@ -243,7 +243,7 @@ previously established rule.
     puts Time.at(seconds_since_epoch).min
     puts Time.at(seconds_since_epoch).sec
 
-    hex_unixtime_ns = 0x44bf1c1f0258e"
+    hex_unixtime_ns = "0x44bf1c1f0258e"
     puts Time.at(hex_unixtime_ns.to_i(16) / 1000000.0)
 
     start_time = Time.now
@@ -276,6 +276,53 @@ previously established rule.
     if "storm:4300" =~ /^(\s+):(\d+)$/
       host = $1
       port = $2
+    end
+
+## Blocks and Procs
+
+    callback1 = proc { puts "Hello." }
+    callback2 = lambda { puts "Hello." }
+
+    callback1.call
+    callback2.call      # proc == lambda
+
+    on_log = proc { |l| puts "#{ Time.now } -- #{l}" }
+    def do_stuff(args, logger)
+      # blah
+      logger.call("Starting deextrapulator..."
+      # blah
+    end
+
+    do_stuff(args, on_log)
+
+    def repeat(num)
+      while num > 0
+        yeild num
+        num -= 1
+      end
+    end
+    repeat(3) { |x| puts x }
+
+    trap "SIGINT", proc { puts "^C pressed." }
+
+## Exceptions
+
+    begin
+      file = open("some_file")
+    rescue
+      file = STDIN
+    end
+
+    raise "String exception"
+    raise 
+
+    begin
+      file = open("some_file", "w")
+      file.write("blah")
+    rescue
+      puts "Error..."
+    ensure
+      file.close
     end
 
 ## Classes
@@ -376,25 +423,18 @@ previously established rule.
       data.scan(/<img src="(.*?)"/) { |x| puts x }
     end
 
-## Blocks
-
-## Exceptions
+    require 'open-uri'
+    open("http://www.ruby-lang.org/") {|f|
+      f.each_line {|line| p line}
+    }
 
 ## Commandline
 
     $ ls | ruby -ne 'puts $_ if $_ =~ /\.html$/'
     $ ls | ruby -pe '$_.capitalize!'
     $ ls | ruby -ne 'if /(.+)\.html$/ then puts `echo #{$1}` end'
-
-## Semantics
-
-* Scoping rules
-* Equality
-* Introspection
-
-      [1, 2, 3].methods
-
-* ruby -w
+    $ cat file.txt | ruby -ne 'BEGIN{$/="\n\n"}; puts $_.chomp'
+    $ ruby -pe 'next unless $_ =~ /regexp/' < myfile.txt
 
 ## This Document
 
