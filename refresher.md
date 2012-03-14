@@ -121,13 +121,13 @@ previously established rule.
     puts "Contact me at #{person[:email]}"
 
     capitals.each do |k, v|
-      puts "The capital of #{k} is #{v}
+      puts "The capital of #{k} is #{v}"
     end
 
     capitals.has_key?("Canada")
 
     capitals.keys.sort.each do |k|
-      puts "The capital of #{k} is #{capitals[k]}
+      puts "The capital of #{k} is #{capitals[k]}"
     end
 
     more_capitals = {
@@ -193,7 +193,7 @@ previously established rule.
     when 6
       puts "You win!"
     else
-      raise "What just happened?
+      raise "What just happened?"
     end
 
 ## Getting Stuff Done
