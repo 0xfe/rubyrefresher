@@ -4,7 +4,7 @@
       type='text/css'>
 <link href='refresher.css' rel='stylesheet' type='text/css' />
 
-# The Ruby Refresher
+# The Ruby Refresher (Draft)
 
 ## Preface
 
