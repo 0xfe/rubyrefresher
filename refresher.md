@@ -278,11 +278,28 @@ previously established rule.
       port = $2
     end
 
-## Blocks and Procs
+## Methods, Blocks, and Procs
+
+    def say_hello
+      puts "Hello"
+    end
+
+    def say_something(thing)
+      puts thing
+    end
+
+    def say_these_things(thing1="boo", thing2="blah")
+      puts thing1
+      puts thing2
+    end
+    say_these_things(thing2="ha")
+
+    def show_people(*people)
+      people.each { |p| puts p }
+    end
 
     callback1 = proc { puts "Hello." }
     callback2 = lambda { puts "Hello." }
-
     callback1.call
     callback2.call      # proc == lambda
 
@@ -292,8 +309,12 @@ previously established rule.
       logger.call("Starting deextrapulator..."
       # blah
     end
-
     do_stuff(args, on_log)
+
+    def do_thing(*args, &job)
+      job.call(args)
+    end
+    do_thing :blah { |x| puts x.to_s }
 
     def repeat(num)
       while num > 0
