@@ -306,7 +306,7 @@ previously established rule.
     on_log = proc { |l| puts "#{ Time.now } -- #{l}" }
     def do_stuff(args, logger)
       # blah
-      logger.call("Starting deextrapulator..."
+      logger.call("Starting deextrapulator...")
       # blah
     end
     do_stuff(args, on_log)
