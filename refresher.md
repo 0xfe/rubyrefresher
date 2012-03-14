@@ -117,7 +117,7 @@ previously established rule.
       :email, "al@wormhole.com"
     }
 
-    puts "The capital of India is #{capitals[India]}"
+    puts "The capital of India is #{capitals['India']}"
     puts "Contact me at #{person[:email]}"
 
     capitals.each do |k, v|
