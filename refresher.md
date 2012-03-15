@@ -112,9 +112,9 @@ previously established rule.
     }
 
     person = {
-      :first_name, "Albert",
-      :last_name, "Einstein",
-      :email, "al@wormhole.com"
+      first_name: "Albert",
+      last_name: "Einstein",
+      email: "al@wormhole.com"
     }
 
     puts "The capital of India is #{capitals['India']}"
@@ -335,7 +335,7 @@ previously established rule.
     end
 
     raise "String exception"
-    raise 
+    raise
 
     begin
       file = open("some_file", "w")
