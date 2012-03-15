@@ -211,6 +211,9 @@ previously established rule.
     Process.exit 21
 
     first_argument = ARGV.first
+    
+    puts "#{ENV['HOME']} is where the heart is."
+    ENV.each {|k, v| puts "#{k} = #{v}" if k =~ /^JAVA/ }
 
     while true
       puts "What is your name?"
@@ -251,6 +254,16 @@ previously established rule.
     puts File.read("myfile") if File.exists?("myfile")
     File.open("/etc/passwd").chown(0)
     File.open("/etc/passwd").chmod(0644)
+    
+    FileUtils.chown('root', 'wheel', '/etc/passwd')
+    FileUtils.chown 'root', nil, Dir.glob('/usr/bin/*'), :verbose => true
+    FileUtils.chown_R 'boo', 'boo', '/home/boo'
+    FileUtils.cp %w(boo.html boo.js boo.css), '/home/boo/www'
+    FileUtils.rm Dir.glob('*.trash')
+    
+    FileUtils.cd('/etc') do
+      puts File.open("passwd").read
+    done
 
     passwd_data = File.read("/etc/passwd")          # Returns one string
     passwd_lines = File.readlines("/etc/passwd")    # Returns array of strings
@@ -479,7 +492,7 @@ previously established rule.
       f.each_line {|line| p line}
     }
 
-## Commandline
+## Ruby on the Command-line
 
     $ ls | ruby -ne 'puts $_ if $_ =~ /\.html$/'
     $ ls | ruby -pe '$_.capitalize!'
