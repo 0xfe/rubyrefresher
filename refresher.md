@@ -82,14 +82,19 @@ previously established rule.
 
     puts primes[0..3]     # => [2, 3, 5]
     puts primes[0,3]      # => [2, 3, 5]
+    puts primes.first(3)  # => [2, 3, 5]
 
     people.each { |person| puts person }
     people.each do |person|
       puts person
     end
+    puts people
 
-    b_people.select { |person| person =~ /^B/ }     # => ["Bob"]
+    people.select { |person| person =~ /^B/ }     # => ["Bob"]
+    people.grep(/^B/)                             # => ["Bob"]
+
     sum_of_primes = primes.inject { |sum, x| sum + x }
+    sum_of_primes = primes.inject(:+)
 
     sentence = "I am your father"
     words = sentence.split(" ")       # => ["I", "am", "your", "father"]
@@ -125,6 +130,7 @@ previously established rule.
     end
 
     capitals.has_key?("Canada")
+    capitals.key? "Canada"
 
     capitals.keys.sort.each do |k|
       puts "The capital of #{k} is #{capitals[k]}"
@@ -169,6 +175,8 @@ previously established rule.
     10.downto(1) { |x| puts x }
     (1..100).each { |x| puts x }
     (1..100).to_a
+    puts (1..100).to_a
+    puts *1..100
 
     if person == "Bob"
       puts "Hi Bob!"
@@ -187,7 +195,7 @@ previously established rule.
       puts "Goodbye, fool!"
     end
 
-    case (rand(6) + 1)
+    case rand(6) + 1
     when 1..5
       puts "You lose!"
     when 6
@@ -209,11 +217,20 @@ previously established rule.
       break unless name.empty?
     end
 
+    begin
+      puts "What is your name?"
+      name = gets.chomp
+    end while name.empty?
+
     ARGF.each_line { |line| puts line.capitalize }
 
     f = File.open("filename", "r")
     f.each_line { |line| puts line.chomp.reverse }
     f.close
+
+    File.open("filename") do |f|
+      f.each_line { |line| puts line.chomp.reverse }
+    end
 
     f = File.open("destroy_this_file", "w")
     f.truncate
@@ -298,10 +315,12 @@ previously established rule.
       people.each { |p| puts p }
     end
 
-    callback1 = proc { puts "Hello." }
-    callback2 = lambda { puts "Hello." }
+    callback1 = proc { |name| puts "Hello #{name}." }
+    callback2 = lambda { |name| puts "Hello #{name}." }
+    callback1.call "world"
+    callback2.call "world"     # proc behaves like lambda in this case
     callback1.call
-    callback2.call      # proc == lambda
+    callback2.call             # lambda raises ArgumentError, unlike proc
 
     on_log = proc { |l| puts "#{ Time.now } -- #{l}" }
     def do_stuff(args, logger)
@@ -324,6 +343,11 @@ previously established rule.
     end
     repeat(3) { |x| puts x }
 
+    def repeat num, &job
+      num.downto 1, &job
+    end
+    repeat(3) { |x| puts x }
+
     trap "SIGINT", proc { puts "^C pressed." }
 
 ## Exceptions
@@ -335,7 +359,10 @@ previously established rule.
     end
 
     raise "String exception"
-    raise 
+    raise
+
+    fail "String exception"
+    fail
 
     begin
       file = open("some_file", "w")
@@ -362,6 +389,7 @@ previously established rule.
       end
 
       alias :fullname :name
+      alias surname last_name
     end
 
     al = Person.new
@@ -385,6 +413,7 @@ previously established rule.
 
     system 'ls'
     `ls`.split(/\n/).length
+    `ls`.lines.length
     puts uid
     puts euid
     puts gid
@@ -401,19 +430,19 @@ previously established rule.
     system("ps -ho pid,state -p #{p1}")
 
     pid = fork do
-      Signal.trap("USR1") do
+      trap :USR1 do
         $debug = !$debug
         puts "Debug now: #$debug"
       end
-      Signal.trap("TERM") do
+      trap :TERM do
         puts "Terminating..."
         shutdown()
       end
     end
     Process.detach(pid)
-    Process.kill("USR1", pid)
-    Process.kill("USR1", pid)
-    Process.kill("TERM", pid)
+    Process.kill(:USR1, pid)
+    Process.kill(:USR1, pid)
+    Process.kill(:TERM, pid)
 
     Process.daemon
     Process.times
@@ -423,7 +452,7 @@ previously established rule.
     port = 80
     s = TCPSocket.open(host, port)
     s.puts "GET #{path}"
-    while !s.eof?
+    until s.eof?
       puts s.readline
     end
     s.close
