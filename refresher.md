@@ -247,13 +247,14 @@ previously established rule.
     puts File.read("myfile") if File.exists?("myfile")
     File.open("/etc/passwd").chown(0)
     File.open("/etc/passwd").chmod(0644)
-    
+
+    require 'fileutils'
     FileUtils.chown('root', 'wheel', '/etc/passwd')
     FileUtils.chown 'root', nil, Dir.glob('/usr/bin/*'), :verbose => true
     FileUtils.chown_R 'boo', 'boo', '/home/boo'
     FileUtils.cp %w(boo.html boo.js boo.css), '/home/boo/www'
     FileUtils.rm Dir.glob('*.trash')
-    
+
     FileUtils.cd('/etc') do
       puts File.open("passwd").read
     done
