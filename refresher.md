@@ -1,3 +1,4 @@
+<head><title>The Ruby Refresher</title></head>
 <link href='http://fonts.googleapis.com/css?family=Inika' rel='stylesheet'
       type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'
