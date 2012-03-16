@@ -44,6 +44,13 @@ previously established rule.
     print 'This string beings with a single quote.'
     puts 'In Ruby, the string "b = #{b}" evaluates to "b = boo"'
 
+    valueless = nil
+    valueless.nil?
+
+    truthiness = true
+    falsiness = false
+
+    puts(truthiness == falsiness)
 
 ## Arrays
 
