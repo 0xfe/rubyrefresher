@@ -305,7 +305,7 @@ previously established rule.
     "aa".unpack('b8B8')                 #=> ["10000110", "01100001"]
     "aaa".unpack('h2H2c')               #=> ["16", "61", 97]
 
-    if "storm:4300" =~ /^(\s+):(\d+)$/
+    if "storm:4300" =~ /^(\S+):(\d+)$/
       host = $1
       port = $2
     end
