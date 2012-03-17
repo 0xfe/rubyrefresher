@@ -41,7 +41,7 @@ previously established rule.
 
     triple_x = "X" * 3
 
-    print 'This string beings with a single quote.'
+    print 'This string begins with a single quote.'
     puts 'In Ruby, the string "b = #{b}" evaluates to "b = boo"'
 
     valueless = nil
@@ -81,7 +81,7 @@ previously established rule.
     people.sort!
     puts "#{people.first} is not Bob"
 
-    puts primes[0..3]     # => [2, 3, 5]
+    puts primes[0...3]    # => [2, 3, 5]
     puts primes[0,3]      # => [2, 3, 5]
     puts primes.first(3)  # => [2, 3, 5]
 
