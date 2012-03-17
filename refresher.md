@@ -382,13 +382,53 @@ previously established rule.
     begin
       file = open("some_file", "w")
       file.write("blah")
-    rescue
-      puts "Error..."
+    rescue Exception => e
+      puts "Error: %s" %[e.message]
+      e.backtrace.inspect
     ensure
       file.close
     end
 
-## Classes
+    raise ArgumentError, 'Invalid argument'
+    raise IndexError, 'Out of range'
+
+    class RetryException < RuntimeError
+      attr :can_retry
+      def initialize(can_retry)
+        @can_retry = can_retry
+      end
+    end
+
+    def send_message(endpoint, message)
+      bytes_written = endpoint.write(message)
+      raise RetryException.new(true) if bytes_written.nil?
+    end
+
+    begin
+      endpoint = SuperSocket.open("localhost", 2000)
+      send_message(endpoint, "Hello endpoint!")
+    rescue RetryException => e
+      retry if e.can_retry
+      raise
+    ensure
+      endpoint.close
+    end
+
+## Modules and Classes
+
+    module Music
+      A = 440
+      def tune_up(note)
+        # do blah
+      end
+    end
+
+    puts Music::A
+    Music.tune_up(c_sharp)
+
+    include Music
+    puts A
+    tune_up(b_flat)
 
     class Person
       attr_reader :first_name, :last_name
