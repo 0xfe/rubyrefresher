@@ -352,7 +352,7 @@ previously established rule.
 
     def repeat(num)
       while num > 0
-        yeild num
+        yield num
         num -= 1
       end
     end
