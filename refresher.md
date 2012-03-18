@@ -104,8 +104,8 @@ previously established rule.
 
     reconstructed_sentence = words.join(" ")
 
-    [1, 4, 8, 3, 54, 34].select { |n| n > 30 }      # returns one array
-    [1, 4, 8, 3, 54, 34].partition { |n| n > 30 }   # returns array of arrays
+    [1, 4, 8, 3, 54, 34].select { |n| n > 30 }      # => [54, 34]
+    [1, 4, 8, 3, 54, 34].partition { |n| n > 30 }   # => [[54, 34], [1, 4, 8, 3]]
     [1, 3, 5].map { |n| n ** 2 }                    # => [1, 9, 25]
     [[1, 4], [4, 5], [6, 6]].flatten!               # => [1, 4, 4, 5, 6, 6]
 
