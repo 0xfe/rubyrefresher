@@ -118,9 +118,9 @@ previously established rule.
     }
 
     person = {
-      first_name: "Albert",
-      last_name: "Einstein",
-      email: "al@wormhole.com"
+      :first_name => "Albert",
+      :last_name => "Einstein",
+      :email => "al@wormhole.com"
     }
 
     puts "The capital of India is #{capitals['India']}"
