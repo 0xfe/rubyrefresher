@@ -289,6 +289,7 @@ previously established rule.
     dice_roll = rand(6) + 1
     100.times { puts rand(6) + 1 }
 
+    boo = "boo"
     boo.each_byte { |x| puts x }
     boo.each_byte { |x| puts x.chr }
     "BORED".each_byte {|b| print b.to_s(base=16)}
