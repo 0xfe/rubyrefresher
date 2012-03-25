@@ -406,8 +406,9 @@ previously established rule.
       raise RetryException.new(true) if bytes_written.nil?
     end
 
+    require 'socket'
     begin
-      endpoint = SuperSocket.open("localhost", 2000)
+      endpoint = TCPSocket.open("localhost", 2000)
       send_message(endpoint, "Hello endpoint!")
     rescue RetryException => e
       retry if e.can_retry
