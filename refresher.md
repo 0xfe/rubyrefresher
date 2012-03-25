@@ -468,7 +468,7 @@ previously established rule.
 
     system 'ls'
     `ls`.split(/\n/).length
-    `ls`.lines.length
+    `ls`.lines.to_a.length
     puts uid
     puts euid
     puts gid
