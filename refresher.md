@@ -57,7 +57,7 @@ previously established rule.
     primes = [2, 3, 5, 7]
     people = ["Bob", "Alice", "Eve"]
 
-    puts "The first prime is " << primes[0]
+    puts "The first prime is " << primes[0].to_s
     puts "The last person is " << people[-1]
 
     puts "The first person is " << people.first
@@ -148,7 +148,7 @@ previously established rule.
 
     capitals.delete("China")
 
-    try
+    begin
       puts "The capital of China is #{capitals.fetch('China')}"
     rescue KeyError
       puts "OMG! China has no capital"
@@ -237,7 +237,7 @@ previously established rule.
     end
 
     f = File.open("destroy_this_file", "w")
-    f.truncate
+    f.truncate(0)
     f.write("Destroyed\n")
     f.seek(0, IO::SEEK_SET)
     f.write("Destroyed Again\n")
@@ -252,7 +252,7 @@ previously established rule.
     puts File.dirname(__FILE__)
 
     puts File.read("myfile") if File.exists?("myfile")
-    File.open("/etc/passwd").chown(0)
+    File.open("/etc/passwd").chown(0, 0)
     File.open("/etc/passwd").chmod(0644)
 
     require 'fileutils'
@@ -264,7 +264,7 @@ previously established rule.
 
     FileUtils.cd('/etc') do
       puts File.open("passwd").read
-    done
+    end
 
     passwd_data = File.read("/etc/passwd")          # Returns one string
     passwd_lines = File.readlines("/etc/passwd")    # Returns array of strings
@@ -289,6 +289,7 @@ previously established rule.
     dice_roll = rand(6) + 1
     100.times { puts rand(6) + 1 }
 
+    boo = "boo"
     boo.each_byte { |x| puts x }
     boo.each_byte { |x| puts x.chr }
     "BORED".each_byte {|b| print b.to_s(base=16)}
@@ -343,6 +344,7 @@ previously established rule.
       logger.call("Starting deextrapulator...")
       # blah
     end
+    args = [ 1, 2, 3 ]
     do_stuff(args, on_log)
 
     def do_thing(*args, &job)
@@ -404,8 +406,9 @@ previously established rule.
       raise RetryException.new(true) if bytes_written.nil?
     end
 
+    require 'socket'
     begin
-      endpoint = SuperSocket.open("localhost", 2000)
+      endpoint = TCPSocket.open("localhost", 2000)
       send_message(endpoint, "Hello endpoint!")
     rescue RetryException => e
       retry if e.can_retry
@@ -421,14 +424,15 @@ previously established rule.
       def tune_up(note)
         # do blah
       end
+      module_function :tune_up
     end
 
     puts Music::A
-    Music.tune_up(c_sharp)
+    Music.tune_up(:c_sharp)
 
     include Music
     puts A
-    tune_up(b_flat)
+    tune_up(:b_flat)
 
     class Person
       attr_reader :first_name, :last_name
@@ -468,7 +472,9 @@ previously established rule.
 
     system 'ls'
     `ls`.split(/\n/).length
-    `ls`.lines.length
+    `ls`.lines.to_a.length
+
+    include Process
     puts uid
     puts euid
     puts gid
@@ -522,8 +528,8 @@ previously established rule.
     end
 
     require 'net/http'
-    h = Net::HTTP.new('www.reddit.com', 80)
-    resp, data = h.get('/index.html', nil)
+    h = Net::HTTP.new('www.amazon.com', 80)
+    resp, data = h.get('/index.html')
     if resp.message == "OK"
       data.scan(/<img src="(.*?)"/) { |x| puts x }
     end
