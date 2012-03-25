@@ -344,6 +344,7 @@ previously established rule.
       logger.call("Starting deextrapulator...")
       # blah
     end
+    args = [ 1, 2, 3 ]
     do_stuff(args, on_log)
 
     def do_thing(*args, &job)
