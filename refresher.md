@@ -469,6 +469,8 @@ previously established rule.
     system 'ls'
     `ls`.split(/\n/).length
     `ls`.lines.to_a.length
+
+    include Process
     puts uid
     puts euid
     puts gid
