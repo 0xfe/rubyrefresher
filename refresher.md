@@ -524,8 +524,8 @@ previously established rule.
     end
 
     require 'net/http'
-    h = Net::HTTP.new('www.reddit.com', 80)
-    resp, data = h.get('/index.html', nil)
+    h = Net::HTTP.new('www.amazon.com', 80)
+    resp, data = h.get('/index.html')
     if resp.message == "OK"
       data.scan(/<img src="(.*?)"/) { |x| puts x }
     end
