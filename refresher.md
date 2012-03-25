@@ -237,7 +237,7 @@ previously established rule.
     end
 
     f = File.open("destroy_this_file", "w")
-    f.truncate
+    f.truncate(0)
     f.write("Destroyed\n")
     f.seek(0, IO::SEEK_SET)
     f.write("Destroyed Again\n")
