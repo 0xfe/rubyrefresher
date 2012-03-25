@@ -252,7 +252,7 @@ previously established rule.
     puts File.dirname(__FILE__)
 
     puts File.read("myfile") if File.exists?("myfile")
-    File.open("/etc/passwd").chown(0)
+    File.open("/etc/passwd").chown(0, 0)
     File.open("/etc/passwd").chmod(0644)
 
     require 'fileutils'
