@@ -148,7 +148,7 @@ previously established rule.
 
     capitals.delete("China")
 
-    try
+    begin
       puts "The capital of China is #{capitals.fetch('China')}"
     rescue KeyError
       puts "OMG! China has no capital"
