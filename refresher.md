@@ -264,7 +264,7 @@ previously established rule.
 
     FileUtils.cd('/etc') do
       puts File.open("passwd").read
-    done
+    end
 
     passwd_data = File.read("/etc/passwd")          # Returns one string
     passwd_lines = File.readlines("/etc/passwd")    # Returns array of strings
