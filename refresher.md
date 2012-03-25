@@ -424,14 +424,15 @@ previously established rule.
       def tune_up(note)
         # do blah
       end
+      module_function :tune_up
     end
 
     puts Music::A
-    Music.tune_up(c_sharp)
+    Music.tune_up(:c_sharp)
 
     include Music
     puts A
-    tune_up(b_flat)
+    tune_up(:b_flat)
 
     class Person
       attr_reader :first_name, :last_name
