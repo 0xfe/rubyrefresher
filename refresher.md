@@ -93,6 +93,9 @@ previously established rule.
 
     people.select { |person| person =~ /^B/ }     # => ["Bob"]
     people.grep(/^B/)                             # => ["Bob"]
+    
+    special_folks = ["Alice", "Bob"]
+    not_so_special_folks = people - special_folks
 
     sum_of_primes = primes.inject { |sum, x| sum + x }
     sum_of_primes = primes.inject(:+)
@@ -105,6 +108,7 @@ previously established rule.
     reconstructed_sentence = words.join(" ")
 
     [1, 4, 8, 3, 54, 34].select { |n| n > 30 }      # => [54, 34]
+    [1, 4, 8, 3, 54, 34].reject { |n| n > 30 }      # => [1, 4, 8, 3]
     [1, 4, 8, 3, 54, 34].partition { |n| n > 30 }   # => [[54, 34], [1, 4, 8, 3]]
     [1, 3, 5].map { |n| n ** 2 }                    # => [1, 9, 25]
     [[1, 4], [4, 5], [6, 6]].flatten!               # => [1, 4, 4, 5, 6, 6]
