@@ -542,6 +542,11 @@ previously established rule.
     open("http://www.ruby-lang.org/") {|f|
       f.each_line {|line| p line}
     }
+    
+    def is_mac?
+      require 'rbconfig'
+      return Config::CONFIG['host_os'] =~ /^darwin/
+    end
 
 ## Ruby on the Command-line
 
