@@ -548,6 +548,7 @@ previously established rule.
     $ ls | ruby -ne 'puts $_ if $_ =~ /\.html$/'
     $ ls | ruby -pe '$_.capitalize!'
     $ ls | ruby -ne 'if /(.+)\.html$/ then puts `echo #{$1}` end'
+    $ expn list | ruby -e "puts ARGF.readlines.map{|s|s.chomp}.join(',')"
     $ cat file.txt | ruby -ne 'BEGIN{$/="\n\n"}; puts $_.chomp'
     $ ruby -pe 'next unless $_ =~ /regexp/' < myfile.txt
 
