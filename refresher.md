@@ -1,4 +1,4 @@
-# The Ruby Refresher (Draft)
+# The Ruby Refresher
 
 ## Preface
 
